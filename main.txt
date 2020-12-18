@@ -1,0 +1,113 @@
+#include<stdio.h>
+#include<string.h>
+
+void encryption(FILE* inputFile, FILE* outputFile, char cipherKey[]);
+void decryption(FILE* inputFile, FILE* outputFile, char cipherKey[]);
+
+int main(int argc, char* argv[])
+{
+    FILE* inputFile=NULL;
+    FILE* outputFile=NULL;
+    char option;
+    char cipherKey[26] = {'\0'};
+    
+    if(argc!= 4)
+    {
+        printf("Error: Program should have three inputs 'e/d', 'input file', 'output file'\n");
+        return -1;
+    }
+
+    option = argv[1][0];
+    if(option != 'e' && option != 'E' && option != 'd' && option == 'D')
+    {
+        printf("Error: first argument must be 'e' or 'd'\n");
+        return -1;
+    }
+    
+    inputFile = fopen(argv[2],"r");
+    if(inputFile == NULL)
+    {
+        printf("Error in opening input file\n");
+        return -1;
+    }
+    
+    outputFile = fopen(argv[3],"w");
+    if(outputFile == NULL)
+    {
+        printf("Error in opening output file\n");
+        return -1;
+    }
+    
+    if(option == 'e' || option == 'E')
+    {
+        printf("Please enter the encryption key : ");
+        scanf("%s",cipherKey);
+        if(strlen(cipherKey) != 26)
+        {
+            printf("Error: Encryption key should be of 26 characters\n");
+            return -1;
+        }
+        encryption(inputFile,outputFile, cipherKey);
+    }
+    else if(option == 'd' || option == 'D')
+    {
+        printf("Please enter the decryption key : ");
+        scanf("%s",cipherKey);
+        if(strlen(cipherKey) != 26)
+        {
+            printf("Error: decryption key should be of 26 characters\n");
+            return -1;
+        }
+        decryption(inputFile,outputFile,cipherKey);
+    }
+
+    fclose(inputFile);
+    fclose(outputFile);
+    return 0;
+}
+
+void encryption(FILE* inputFile, FILE* outputFile, char cipherKey[])
+{
+    int index = 0;
+    char inputChar,encryptChar;
+    inputChar = fgetc(inputFile);
+    while(inputChar != EOF)
+    {
+        if(inputChar >='A' && inputChar <='Z')
+        {
+            index = inputChar - 65;
+            encryptChar = cipherKey[index];
+            fputc(encryptChar, outputFile);
+        }
+        else if(inputChar >='a' && inputChar <='z')
+        {
+            index = inputChar - 97;
+            encryptChar = cipherKey[index];
+            fputc(encryptChar, outputFile);
+        }
+        inputChar = fgetc(inputFile);
+    }
+}
+void decryption(FILE* inputFile, FILE* outputFile, char cipherKey[])
+{
+    int index = 0;
+    char inputChar,decryptChar;
+    inputChar = fgetc(inputFile);
+    while(inputChar!=EOF)
+    {
+        if((inputChar >='A' && inputChar <='Z') || (inputChar >='a' && inputChar <='z')  )
+        {
+            for(index = 0; index < 26;index++)
+            {
+                if(cipherKey[index] == inputChar)
+                break;
+            }
+            if(inputChar >='a' && inputChar <='z')
+            	decryptChar = 'a' + index;
+            else
+            	decryptChar = 'A' + index;
+            
+            fputc(decryptChar, outputFile);
+        }
+    }
+}

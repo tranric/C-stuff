@@ -1,0 +1,52 @@
+
+gcc file -o output -lm
+-d for debug file 
+gcc -c
+object file 
+
+gcc -c sourcefile.c 
+//-c outputs a .o file 
+gcc file.o -o file -lm 
+
+target : depenancyfile.c
+1 (MUST BE TABBED) gcc file.c -o output -lm
+
+
+make file
+
+gcc power2.c compute.c -lm 
+
+gcc power2.o compute.o -o power2 -lm
+
+make file:
+power2: power2.o compute.o
+		gcc power2.o compute.o -o power2 -lm 
+power2.0: power2.c 
+		gcc -c power2.c
+compute.o: compute.c 
+		gcc -c compute.c
+
+command : make
+make command recompiles the file from the make file 
+
+
+made makefile called makefile in cstuff
+use command make on makefile 
+make makefile 
+
+make command alone updates the files.
+
+make clean.
+runs the clean.
+
+use kill -l to show all signals
+
+
+
+
+
+
+
+
+
+

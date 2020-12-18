@@ -1,0 +1,9 @@
+//testing out string handling tools
+
+char numberString[20];
+long int number;
+
+//have the user enter a string value that represents the number
+fgets(numberString, 20, stdin); //50abc
+
+number = strtof(numberString, NULL);

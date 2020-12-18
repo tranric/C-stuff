@@ -1,0 +1,53 @@
+gdb debugger
+
+
+break [linenumber]
+eg. break 19
+breaks at line 19
+$# is value of what variable has stored
+print shows value stored
+set makes a value stored under the variable
+
+eg. $1 = 20
+print number1
+
+set number1=90
+print number1
+$4=90
+continue
+//continue resumes the program from the break point
+
+starting the debugger
+gdb ./a.out
+
+run the program by typing run
+
+step executes next statement in the program
+
+watch command makes a watchpoint to show value changes of old and new of a variable
+
+delete command removes a watchpoint
+info break
+lists all breakpoints
+
+gcc -g file.c
+compile for debugging
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
